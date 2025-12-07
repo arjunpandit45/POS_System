@@ -10,8 +10,6 @@ It tracks orders, **handles payments**, and **manages inventory** to make restau
 
 A glimpse of the clean and minimal dashboard interface — designed for clarity and productivity.
 
-<img src="" alt="dashboard preview"/>
-
 ---
 
 ## Features
