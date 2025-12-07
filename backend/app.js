@@ -17,7 +17,6 @@ const PORT = config.port
 
 
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.urlencoded({extended: true}))
 
 
@@ -29,16 +28,12 @@ app.use(express.urlencoded({extended: true}))
 //     ],
 //     credentials: true
 // }));
-const frontendURL = 'https://pos-system-frontend-ne5v.onrender.com';
+app.use(cors({
+    origin: 'https://pos-system-frontend-ne5v.onrender.com', // MUST MATCH EXACTLY
+    credentials: true,
+}));
 
-const corsOptions = {
-  origin: frontendURL, 
-  // MANDATORY: Allows the browser to send cookies/auth headers across origins
-  credentials: true, 
-};
-
-app.use(cors(corsOptions));
-
+app.use(cookieParser());
 
 
 app.get("/" , (req , res) => {
