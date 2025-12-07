@@ -1,16 +1,14 @@
-
-# 🍽️ POS_System | (Point of Sale) Restaurant management System 
+# 🍽️ POS (Point of Sale) Restaurant management System 
 
 ##  Overview 
 A restaurant **POS system** helps **take orders**, **manage tables**, and **generate bills** smoothly.
 It tracks orders, **handles payments**, and **manages inventory** to make restaurant operations faster and easier
 
-
 ---
 
-A glimpse of the clean and minimal dashboard interface — designed for clarity and productivity.
-
----
+## Deployement
+* Deployed the frontend and backend on render.
+* Live Link : https://pos-system-frontend-ne5v.onrender.com
 
 ## Features
 
