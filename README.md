@@ -77,7 +77,7 @@ A glimpse of the clean and minimal dashboard interface — designed for clarity 
 * A preview of clean and minimal interface
 
 *Register UI*
-<img src="./client/public/preview_1.png" alt="Dashboard Screenshot" width="100%" />
+<img src="./frontend//public/image.png" alt="Dashboard Screenshot" width="100%" />
 
 *Home Page UI*
 <img src="./frontend/public/Screenshot 2025-12-07 112822.png" alt="Dashboard Screenshot" width="100%" />
