@@ -6,14 +6,14 @@ const isVerifiedUser = async (req , res , next) => {
 
     try {
         
-        const { accessToken } = await req.cookies;
+        const { accessToken } = req.cookies;
 
         if(!accessToken){
             const error = createHttpError(401 , "Please provide token!");
             return next(error);
         }
 
-        const decodeToken = await jwt.verify(accessToken , process.env.JWT_SECRET);
+        const decodeToken = jwt.verify(accessToken , process.env.JWT_SECRET);
         
         const user = await User.findById(decodeToken._id);
         if(!user){

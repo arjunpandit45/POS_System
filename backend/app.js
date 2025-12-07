@@ -14,17 +14,31 @@ const app = express();
 
 const PORT = config.port 
 
+// app.use(cors({
+//     credentials : true,
+//     origin : [
+//         "https://pos-system-frontend-ne5v.onrender.com",
+//         "http://localhost:5173"
+//     ],
+//     credentials: true
+// }));
+const cors = require("cors");
+
 app.use(cors({
-    credentials : true,
-    origin : [
+    origin: [
         "https://pos-system-frontend-ne5v.onrender.com",
         "http://localhost:5173"
     ],
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({extended: true}))
 
 
 app.get("/" , (req , res) => {
