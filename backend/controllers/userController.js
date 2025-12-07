@@ -80,6 +80,7 @@ const login = async (req , res , next ) => {
             httpOnly: true,
             secure: true,
             sameSite: 'none',
+            domain: '.onrender.com',
             path: '/',          // VERY IMPORTANT
             maxAge: 1000 * 60 * 60 * 24 * 30
         })
