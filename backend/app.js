@@ -30,7 +30,6 @@ app.use(express.urlencoded({extended: true}))
 //     origin: 'https://pos-system-frontend-ne5v.onrender.com', // MUST MATCH EXACTLY
 //     credentials: true,
 // }));
-const cors = require("cors");
 
 app.use(cors({
     origin: "https://pos-system-frontend-ne5v.onrender.com",
