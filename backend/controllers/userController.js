@@ -80,10 +80,8 @@ const login = async (req , res , next ) => {
             
             maxAge: 7 * 24 * 60 * 60 * 1000,
             httpOnly: true,
-            // sameSite: "none",
-            // secure: true
-            secure: false,     // LOCALHOST par false rakho
-            sameSite: "lax"    // LOCALHOST par none NOT allowed
+            sameSite: "none",
+            secure: true
         })
 
         res.status(200).json({ success : true , message : "User login Successfully!" , 
@@ -120,10 +118,8 @@ const logout = async (req , res , next ) => {
         // res.clearCookie('accessToken');
         res.clearCookie('accessToken', {
             httpOnly: true,
-            // secure: true,
-            // sameSite: 'none',        
-             secure: false,     // LOCALHOST par false rakho
-            sameSite: "lax"    // LOCALHOST par none NOT allowed   
+            secure: true,
+            sameSite: 'none',        
         })
         res.status(200).json({success : true , message : "User logout successfully!"})
     } 
