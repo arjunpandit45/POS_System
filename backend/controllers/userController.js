@@ -76,20 +76,13 @@ const login = async (req , res , next ) => {
         )
 
         // Set the Cookie while user will login -->
-        // res.cookie("accessToken", accessToken, {
-        //     httpOnly: true,
-        //     secure: true,
-        //     sameSite: 'none',
-        //     path: '/',          // VERY IMPORTANT
-        //     maxAge: 1000 * 60 * 60 * 24 * 7
-        // })
-        res.cookie("accessToken", token, {
+        res.cookie("accessToken", accessToken, {
+            
+            maxAge: 7 * 24 * 60 * 60 * 1000,
             httpOnly: true,
-            secure: true,
-            sameSite: "None",   // VERY IMPORTANT
-            path: "/"
-        });
-
+            sameSite: "none",
+            secure: true
+        })
 
         res.status(200).json({ success : true , message : "User login Successfully!" , 
             data : isEmailExist
