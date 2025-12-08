@@ -10,35 +10,30 @@ const tableRouter = require("./routes/tableRoute");
 const paymentRouter = require("./routes/paymentRoute");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
 const app = express();
+
 app.set('trust proxy', 1);
-
 const PORT = config.port 
-
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
-
-// app.use(cors({
-//     credentials : true,
-//     origin : [
-//         "https://pos-system-frontend-ne5v.onrender.com",
-//         "http://localhost:5173"
-//     ],
-//     credentials: true
-// }));
 app.use(cors({
-    origin: 'https://pos-system-frontend-ne5v.onrender.com', // MUST MATCH EXACTLY
-    credentials: true,
+    origin : [
+        "https://pos-system-frontend-ne5v.onrender.com",
+        "http://localhost:5173"
+    ],
+    credentials: true
 }));
+// app.use(cors({
+//     origin: 'https://pos-system-frontend-ne5v.onrender.com', // MUST MATCH EXACTLY
+//     credentials: true,
+// }));
 
 app.use(cookieParser());
 
-
 app.get("/" , (req , res) => {
-    // const err = createHttpError(404 , "something went wrong!")
-    // throw err;
     res.json({message: "Hello from the POS Server!"})
 })
 
