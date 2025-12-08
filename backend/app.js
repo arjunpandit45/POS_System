@@ -12,7 +12,7 @@ const cors = require("cors");
 
 const app = express();
 
-app.set('trust proxy', true);
+// app.set('trust proxy', true);
 const PORT = process.env.PORT
 
 app.use(express.json());
@@ -24,8 +24,15 @@ app.use(cookieParser());
 //     origin: 'http://localhost:5173',
 //     credentials: true,
 // }));
+// app.use(cors({
+//     origin: 'https://pos-system-frontend-w0jt.onrender.com',
+//     credentials: true,
+// }));
 app.use(cors({
-    origin: 'https://pos-system-frontend-w0jt.onrender.com',
+    origin: [
+        'https://pos-system-frontend-w0jt.onrender.com',
+        'http://localhost:5173'
+    ],
     credentials: true,
 }));
 
