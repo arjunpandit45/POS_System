@@ -1,151 +1,201 @@
-import React, { useState } from 'react'
-import { register } from '../../https';
-import { useMutation } from '@tanstack/react-query';
-import { enqueueSnackbar } from 'notistack';
+import { useMutation } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { register } from "../../https";
+import { enqueueSnackbar } from "notistack";
 
-const Register = ({setIsRegister}) => {
+const Register = ({ setIsRegister }) => {
+  const [showPassword, setShowPassword] = useState(false);
 
-    const [formData , setFormData] = useState({
-        name : "",
-        email : "",
-        phone : "",
-        password : "",
-        role : ""
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    role: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleRoleSelection = (selectedRole) => {
+    setFormData({
+      ...formData,
+      role: selectedRole,
+    });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    registerMutation.mutate(formData);
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      password: "",
+      role: "",
     });
 
-    const handleInputChange = (e) => {
-        setFormData({...formData , [e.target.name] : e.target.value});
-    }
+    setShowPassword(false);
+  };
 
-    const handleRoleSelection = (selectedRole) => {
-        setFormData({...formData , role : selectedRole});
-    }
+  const registerMutation = useMutation({
+    mutationFn: (reqData) => register(reqData),
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // console.log(formData);
-        registerMutation.mutate(formData);
-    }
+    onSuccess: (resData) => {
+      const { data } = resData;
 
-    const registerMutation = useMutation({
-      mutationFn : (reqData) => register(reqData),
-      onSuccess : (res) => {
-        const {data} = res;
-        // console.log(data);
-        enqueueSnackbar(data.message , {variant : "success"});
-        setFormData({
-            name : "",
-            email : "",
-            phone : "",
-            password : "",
-            role : ""
-        })
+      enqueueSnackbar(data.message, {
+        variant: "success",
+      });
 
-        setTimeout(() => {
-            setIsRegister(false);
-        } , 1500);
+      setTimeout(() => {
+        setIsRegister(false);
+      }, 1000);
+    },
 
-      },
-      onError : (error) => {
-        const {response} = error;
-        enqueueSnackbar(response.data.message , {variant : "error"});
-      }
-    })
-  
+    onError: (error) => {
+      const { response } = error;
+
+      enqueueSnackbar(response?.data?.message, {
+        variant: "error",
+      });
+    },
+  });
 
   return (
     <div>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label className='block text-[#ababab] mb-2 text-sm font-medium '>
-                    Employee Name 
-                </label>
-                <div className='flex items-center rounded-lg p-5 px-4 bg-[#1f1f1f] '>
-                    <input type="text" 
-                     name='name'
-                     placeholder='Enter employee name' 
-                     className='bg-transparent flex-1 text-white focus:outline-none '
-                     required 
-                     value={formData.name}
-                     onChange={handleInputChange}
-                     />
-                </div>
-            </div>
+      <form onSubmit={handleFormSubmit}>
 
-            <div>
-                <label className='block text-[#ababab] mb-2 mt-3 text-sm font-medium '>
-                    Employee Email
-                </label>
-                <div className='flex items-center rounded-lg p-5 px-4 bg-[#1f1f1f] '>
-                    <input type="email" 
-                     name='email'
-                     placeholder='Enter employee email' 
-                     className='bg-transparent flex-1 text-white focus:outline-none '
-                     required 
-                     value={formData.email}
-                     onChange={handleInputChange}
-                     />
-                </div>
-            </div>
+        {/* Name */}
+        <div>
+          <label className="block text-[#ababab] text-sm font-medium mb-1">
+            Name
+          </label>
 
-            <div>
-                <label className='block text-[#ababab] mb-2 mt-3 text-sm font-medium '>
-                    Employee Phone
-                </label>
-                <div className='flex items-center rounded-lg p-5 px-4 bg-[#1f1f1f] '>
-                    <input type="number" 
-                     name='phone'
-                     placeholder='Enter employee phone' 
-                     className='bg-transparent flex-1 text-white focus:outline-none '
-                     required 
-                    value={formData.phone}
-                     onChange={handleInputChange}
-                     />
-                </div>
-            </div>
-            <div>
-                <label className='block text-[#ababab] mb-2 mt-3 text-sm font-medium '>
-                    Password 
-                </label>
-                <div className='flex items-center rounded-lg p-5 px-4 bg-[#1f1f1f] '>
-                    <input type="password" 
-                     name='password'
-                     placeholder='Enter Password' 
-                     className='bg-transparent flex-1 text-white focus:outline-none '
-                     required 
-                     value={formData.password}
-                     onChange={handleInputChange}
-                     />
-                </div>
-            </div>
-            <div>
-                <label className='block text-[#ababab] mb-2 mt-3 text-sm font-medium '>
-                    Choose your role
-                </label>
-                <div className="flex item-center gap-3 mt-4">
-                    {
-                       ["Waiter" , "Cashier" , "Admin"].map((role) => {
-                        return (
-                         <button key={role} 
-                            type='button'
-                            className={`bg-[#1f1f1f] px-4 py-3 w-full rounded-lg text-[#ababab] 
-                              ${formData.role == role ? "bg-indigo-700" : ""} `}
-                            onClick={() => handleRoleSelection(role)}
-                          >
-                            {role}
-                         </button>
-                        )
-                       }) 
-                    }
-                </div>
-            </div>
+          <div className="flex items-center rounded-lg bg-[#1f1f1f] py-2 px-4">
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter employee name"
+              className="bg-transparent flex-1 text-white focus:outline-none"
+            />
+          </div>
+        </div>
 
-            <button type='submit' className='w-full mt-6 py-3 text-lg bg-yellow-400 text-gray-900 font-bold rounded-lg '>
-                Sign up
+        {/* Email */}
+        <div>
+          <label className="block text-[#ababab] text-sm font-medium mt-2 mb-1">
+            Email
+          </label>
+
+          <div className="flex items-center rounded-lg bg-[#1f1f1f] py-2 px-4">
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter employee email"
+              className="bg-transparent flex-1 text-white focus:outline-none"
+            />
+          </div>
+        </div>
+
+        {/* Phone */}
+        <div>
+          <label className="block text-[#ababab] text-sm font-medium mt-2 mb-1">
+            Phone Number
+          </label>
+
+          <div className="flex items-center rounded-lg bg-[#1f1f1f] py-2 px-4">
+            <input
+              type="number"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter employee phone number"
+              className="bg-transparent flex-1 text-white focus:outline-none"
+            />
+          </div>
+        </div>
+
+        {/* Password */}
+        <div>
+          <label className="block text-[#ababab] text-sm font-medium mt-2 mb-1">
+            Password
+          </label>
+
+          <div className="flex items-center rounded-lg bg-[#1f1f1f] py-2 px-4">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter password"
+              className="bg-transparent flex-1 text-white focus:outline-none"
+            />
+
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="ml-2 text-gray-400 hover:text-white"
+            >
+              {showPassword ? "🙈" : "👁️"}
             </button>
-        </form>
-    </div>
-  )
-}
+          </div>
+        </div>
 
-export default Register
+        {/* Role */}
+        <div>
+          <label className="block text-[#ababab] text-sm font-medium mt-2 mb-2">
+            Role
+          </label>
+
+          <div className="flex gap-2">
+            {["Admin", "Cashier", "Waiter"].map((role) => (
+              <button
+                key={role}
+                type="button"
+                onClick={() => handleRoleSelection(role)}
+                className={`${
+                  formData.role === role
+                    ? "border border-yellow-400"
+                    : ""
+                } w-full bg-[#1f1f1f] rounded-lg py-2 text-[#ababab] transition hover:bg-[#2a2a2a]`}
+              >
+                {role}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Button */}
+        <button
+          type="submit"
+          className="w-full mt-5 py-2.5 bg-yellow-400 rounded-lg text-lg font-semibold hover:bg-yellow-500 transition"
+        >
+          Sign Up
+        </button>
+
+      </form>
+    </div>
+  );
+};
+
+export default Register;
+

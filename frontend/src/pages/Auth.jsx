@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import restaurant from '../assets/images/restaurant-img.jpg'
+import restro_image from '../assets/images/restaurant-img.jpg'
 import logo from '../assets/images/logo.png' 
 import Register from '../components/auth/Register'
 import Login from '../components/auth/Login'
@@ -12,44 +12,45 @@ const Auth = () => {
     <div className='flex min-h-screen w-full '>
 
      {/* Left Section --> */}
-      <div className='w-1/2 relative flex items-center justify-center bg-cover '>
+      {/* <div className="relative w-1/2 h-screen overflow-hidden">
 
-        {/* Bg-Image  */}
-        <img className='w-full h-full object-cover ' src={restaurant} alt="Restaurant Image" />
+    <img
+        src={restaurant}
+        alt="Restaurant"
+        className="absolute inset-0 w-full h-full object-cover"
+    />
 
-        {/* Black Overlay  */}
-        <div className='absolute inset-0 bg-black bg-opacity-80 '>
+    <div className="absolute inset-0 bg-black/50"></div>
 
-        </div>
+    <blockquote className="absolute bottom-10 left-8 right-8 z-10 text-white italic text-2xl">
+        "Serve customers the best food with prompt and friendly service in a welcoming atmosphere, and they'll keep coming back."
 
-        {/* quote at bottom  */}
-          <blockquote className='absolute bottom-10 px-8 mb-10 text-2xl italic text-white '>
-            "Serve customer the best food with promt and friendy service in a 
-             welcoming atmosphere, and they'll keep coming back."
-            <br />
-            <span className='block mt-4 text-yellow-400 '> 
-              Founder of restro 
-            </span>
-          </blockquote> 
+        <span className="block mt-4 text-yellow-400">
+            — Founder of Restro
+        </span>
+    </blockquote>
 
-      </div>
+    </div> */}
 
-      {/* <div className='w-1/2 relative flex items-center justify-center bg-cover '>
+    <div className="hidden lg:block w-1/2 relative">
+                    
+      <img
+        src={restro_image}
+        alt="restro_image"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
-          <img className='w-full h-full object-cover ' src={restaurant} alt="Restaurant Image" />
+      {/* BLACK OVERLAY (shade only) */}
+      <div className="absolute inset-0 bg-black/60"></div>
 
-          <div className='absolute inset-0 bg-black bg-opacity-30 '></div>
-
-          <blockquote className='absolute bottom-10 px-8 mb-10 text-2xl italic text-white '>
-              "Serve customer the best food with promt and friendly service in a
-                welcoming atmosphere, and they'll keep coming back."
-              <br />
-              <span className='block mt-4 text-yellow-400 '>
-                Founder of restro
-              </span>
-          </blockquote>
-
-      </div> */}
+      <blockquote className="absolute bottom-2 px-8 mb-10 text-white text-xl italic">
+        "Serve customers the best food with prompt and friendly service in a 
+        welcoming atmosphere, and they'll keep coming back."
+        
+        <br />
+        <span className="block mt-2 text-yellow-400">- Founder of Restro</span>
+      </blockquote>
+    </div>
 
       {/* Right Section  */}
       <div className='w-1/2 min-h-screen bg-[#1a1a1a] p-10 '>
